@@ -1,0 +1,39 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es2021", "dom"],
+    "types": [
+      "cypress",
+      "reflect-metadata",
+      "node",
+      "cypress-wait-until",
+      "@cypress/grep"
+    ],
+    "outDir": "./compiledJS",
+    "strictNullChecks": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "listEmittedFiles": true,
+    "declaration": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "emitDecoratorMetadata": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/auth": ["./share/auth/index.ts"],
+      "@shared/base": ["./shared/base/index.ts"],
+      "@shared/utils": ["./shared/utils/index.ts"],
+      "@shared/pages": ["./shared/pages/index.ts"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}
