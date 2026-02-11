@@ -1,5 +1,3 @@
-export const EMPTY = '';
-export const UNDEFINED = '';
 
 export enum HTTPMethod {
   GET = 'GET',

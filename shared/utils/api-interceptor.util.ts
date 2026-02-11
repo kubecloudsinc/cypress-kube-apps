@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { ApiInterceptDetails, IApiInterceptor } from './interfaces';
 import { RouteMatcherOptions } from 'cypress/types/net-stubbing';
-import { HTTPMethod } from './constants';
+import { HTTPMethod } from '@shared/constants';
 
 @injectable()
 export class ApiInterceptor implements IApiInterceptor {
@@ -10,7 +10,8 @@ export class ApiInterceptor implements IApiInterceptor {
     apiInterceptDetails?: ApiInterceptDetails
   ): void {
     cy.wrap(endPoints).each((endPoint) => {
-      let options: RouteMatcherOptions = {
+      console.log(`trying to intercept the end point: ${endPoint}`);
+      const options: RouteMatcherOptions = {
         url: `**${endPoint}*`,
         times: apiInterceptDetails?.times || 1,
         query: apiInterceptDetails?.query,
@@ -23,9 +24,11 @@ export class ApiInterceptor implements IApiInterceptor {
       cy.intercept(options, apiInterceptDetails?.requestHandler).as(
         `${endPoint}-${options.method}` as unknown as string
       );
+      console.log(`intercepted the end point: ${endPoint}-${options.method}`);
     });
   }
   waitForResponse(alias: string): void {
+    console.log(`waiting for the response for alias: ${alias}`);
     cy.wait(`@${alias}`);
   }
 }

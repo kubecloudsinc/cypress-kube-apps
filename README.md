@@ -31,3 +31,10 @@ run the script in the folder. always use gitBash
 ./run install
 corepack will be enabled for yarn
 Note: Always open VSCode as administrator so that the commands in git bash or cmd run without any errors
+
+Important commands
+## to run cypress in open mode
+     yarn cypress open -C cypress.sit.config.js
+
+## to check transcompile is correct
+    yarn tsc --noEmit

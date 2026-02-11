@@ -1,7 +1,7 @@
 // Cypress.Commands.add('loginByUI', () => {})
 
-import { HTTPMethod } from '@shared/utils';
-import { AuthRequest, AuthResponse } from 'shared/auth';
+import { AuthRequest, AuthResponse } from '@shared/models';
+import { HTTPMethod } from '@shared/constants';
 
 Cypress.Commands.add('getToken', (authRequest: AuthRequest) => {
   return cy

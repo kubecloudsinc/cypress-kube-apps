@@ -10,9 +10,8 @@ export class LoginPage implements ILoginPage {
   openPage() {
     console.log("This is a test")
     cy.visit('/');
-    LoginPageSelectors.getLoginLink().click();
   }
-  clickLogIn() {
+  clickSignIn() {
     LoginPageSelectors.getLogInButton().click();
   }
 }

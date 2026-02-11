@@ -1,6 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { APIOption, IBase } from './base.interfaces';
-import { EMPTY, ICommonUtils, UTILS_SYMBOLS } from '@shared/utils';
+import { ICommonUtils, UTILS_SYMBOLS } from '@shared/utils';
+import { EMPTY } from '@shared/constants';
 
 @injectable()
 export class BaseClass implements IBase {
@@ -17,7 +18,7 @@ export class BaseClass implements IBase {
     let urlHost = EMPTY;
     const correlationId = this._commonUtils.getRandomUUID();
     urlHost = Cypress.env('external host from env config implement this');
-    return cy.getToken({ client_id: '', client_secret: '' }).then((token) => {
+    return cy.getToken({ username: '', password: '' }).then((token) => {
       return cy.request<T>(
         Cypress._.merge(
           {

@@ -32,7 +32,10 @@
       "@shared/auth": ["./share/auth/index.ts"],
       "@shared/base": ["./shared/base/index.ts"],
       "@shared/utils": ["./shared/utils/index.ts"],
-      "@shared/pages": ["./shared/pages/index.ts"]
+      "@shared/pages": ["./shared/pages/index.ts"],
+      "@shared/models": ["./shared/models/index.ts"],
+      "@shared/constants": ["./shared/constants/index.ts"],
+      "@support/containers": ["./support/containers/index.ts"],
     }
   },
   "include": ["**/*.ts", "**/*.tsx"]

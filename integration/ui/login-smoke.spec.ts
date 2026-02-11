@@ -1,7 +1,8 @@
-import { ILoginPage } from '@shared/pages';
-import { HTTPMethod, IApiInterceptor, UTILS_SYMBOLS } from '@shared/utils';
-import { PAGE_SYMBOLS } from 'shared/pages/page.symbol';
-import { container } from 'support/containers/inversify.config';
+import { ILoginPage, PAGE_SYMBOLS } from '@shared/pages';
+import { IApiInterceptor, UTILS_SYMBOLS } from '@shared/utils';
+import { container } from '@support/containers';
+import { AuthResponse } from '@shared/models';
+import { API_ENDPOINTS, Endpoints, HTTPMethod } from '@shared/constants';
 
 describe('Login test', () => {
   const loginPage: ILoginPage = container.get(PAGE_SYMBOLS.ILoginPage);
@@ -10,10 +11,18 @@ describe('Login test', () => {
   );
 
   it('login to page after intercepting the calls', () => {
-    loginPage.enterCredentials('', '');
-    apiInterceptor.interceptAPIEndPoints([''], {
+    apiInterceptor.interceptAPIEndPoints([Endpoints.AUTH_LOGIN], {
       method: HTTPMethod.POST,
       times: 3,
+    });
+    loginPage.openPage();
+    loginPage.enterCredentials('kubeuser', 'kubeuser');
+    loginPage.clickSignIn();
+
+    cy.wait(`@${API_ENDPOINTS[Endpoints.AUTH_LOGIN].url}-${API_ENDPOINTS[Endpoints.AUTH_LOGIN].method}`).then((interception) => {
+      const response = interception.response?.body as AuthResponse;
+      expect(response).to.have.property('token');
+      expect(response).to.have.property('username');
     });
   });
 });

@@ -1,12 +1,11 @@
 export const LoginPageSelectors = {
-  getUsernameInput: () => cy.get('#Email'),
-  getPasswordInput: () => cy.get('#Password'),
-  getLogInButton: () => cy.get('input[value="Log in"]'),
-  getLoginLink: () => cy.get('a.ico-login'),
+  getUsernameInput: () => cy.get('[data-test-id="login-username-input"]'),
+  getPasswordInput: () => cy.get('[data-test-id="login-password-input"]'),
+  getLogInButton: () => cy.get('[data-test-id="login-submit-button"]'),
 };
 
 export interface ILoginPage {
   enterCredentials(username: string, password: string): void;
   openPage(): void;
-  clickLogIn(): void;
+  clickSignIn(): void;
 }
