@@ -1,11 +1,11 @@
 Steps for initial setup
 
-make sure node yarn are selected for the project (if using webstorm) 
+make sure node yarn are selected for the project (if using webstorm)
 check on the system if using vscode
- node -v
- corepack -v
- yarn -v
- where yarn
+node -v
+corepack -v
+yarn -v
+where yarn
 
 change to use git bash (webstorm or vscode) as your default terminal
 
@@ -33,8 +33,11 @@ corepack will be enabled for yarn
 Note: Always open VSCode as administrator so that the commands in git bash or cmd run without any errors
 
 Important commands
+
 ## to run cypress in open mode
-     yarn cypress open -C cypress.sit.config.js
+
+     yarn cypress open -C cypress.sit.config.ts
 
 ## to check transcompile is correct
+
     yarn tsc --noEmit
