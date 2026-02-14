@@ -1,4 +1,4 @@
-import { AuthRequest } from '../shared/models';
+import { AuthRequest } from '@shared/models';
 
 declare global {
   namespace Cypress {

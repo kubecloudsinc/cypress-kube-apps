@@ -1,16 +1,17 @@
-// Cypress.Commands.add('loginByUI', () => {})
 
 import { AuthRequest, AuthResponse } from '@shared/models';
-import { HTTPMethod } from '@shared/constants';
+import { API_ENDPOINTS, Endpoints, HTTPMethod } from '@shared/constants';
 
 Cypress.Commands.add('getToken', (authRequest: AuthRequest) => {
   return cy
     .request<AuthResponse>({
-      url: 'The auth url',
+      url: API_ENDPOINTS[Endpoints.AUTH_LOGIN].url,
       body: authRequest,
       method: HTTPMethod.POST,
     })
     .then((response) => {
-      return response.body.access_token;
+      expect(response.status).to.eq(200);
+      const responseBody = response.body as AuthResponse;
+      return responseBody.token!;
     });
 });

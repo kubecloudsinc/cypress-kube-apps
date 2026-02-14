@@ -7,6 +7,14 @@ export interface AuthRequest {
 }
 
 export interface AuthResponse {
-  access_token: string;
-  username: string;
+  token?: string;
+  username?: string;
+  errorCode?: string;
+  errorDescription?: string;
+  fieldErrors?: FieldError[];
+}
+
+export interface FieldError {
+  field: string;
+  description: string;
 }
