@@ -28,8 +28,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Make run script executable
+        run: chmod +x ./run
+
       - name: Run install script
-        run: ./run install
+        run: bash ./run install
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
