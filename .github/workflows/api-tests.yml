@@ -51,10 +51,28 @@ jobs:
         if: always()
         run: yarn generate-reports
 
-      - name: Upload test artifacts
+      - name: Prepare GitHub Pages content
         if: always()
-        uses: actions/upload-artifact@v4
+        run: |
+          rm -rf public
+          mkdir -p public
+          cp -R cypress/reports/mochareports/. public/
+          test -f public/report.html
+
+      - name: Upload Pages artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: cypress-reports-node-${{ matrix.node-version }}
-          path: cypress/reports/
-          retention-days: 30
+          path: public
+
+  deploy-pages:
+    if: always()
+    needs: cypress-tests
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
