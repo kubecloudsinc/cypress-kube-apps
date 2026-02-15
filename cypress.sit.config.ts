@@ -1,7 +1,7 @@
 import { baseE2EConfig, baseE2ESetupNodeEvents } from './cypress.base.config';
 import { defineConfig } from 'cypress';
-import PluginEvents = Cypress.PluginEvents;
-import PluginConfigOptions = Cypress.PluginConfigOptions;
+// import PluginEvents = Cypress.PluginEvents;
+// import PluginConfigOptions = Cypress.PluginConfigOptions;
 
 export default defineConfig({
   e2e: {
@@ -11,7 +11,7 @@ export default defineConfig({
       ...baseE2EConfig.env,
     },
   },
-  setupNodeEvents: (on: PluginEvents, config: PluginConfigOptions) => {
+  setupNodeEvents: (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
     baseE2ESetupNodeEvents(on, config);
     // any environment specific data is here
     // call the api in the method to get the environment data
