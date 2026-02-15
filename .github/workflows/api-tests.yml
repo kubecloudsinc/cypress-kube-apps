@@ -1,0 +1,54 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * 0'
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Clean reports
+        run: yarn clean:reports
+
+      - name: Run Cypress tests
+        run: yarn cypress run -C cypress.sit.config.ts --spec "integration/api/**/*"
+
+      - name: Combine test reports
+        if: always()
+        run: yarn combine-reports
+
+      - name: Generate HTML reports
+        if: always()
+        run: yarn generate-reports
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-reports-node-${{ matrix.node-version }}
+          path: cypress/reports/
+          retention-days: 30
