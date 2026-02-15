@@ -8,8 +8,9 @@
     "prettier:check": "prettier --check cypress/**/*.ts",
     "lint:staged": "lint-staged",
     "clean:reports": "rm -R -f cypress/reports && mkdir -p cypress/reports && mkdir -p cypress/reports/mochareports && mkdir -p cypress/reports/mocha",
-    "combine-reports": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mocha/report.json",
-    "generate-reports": "marge cypress/reports/mocha/mochawesome.json -f report -o cypress/reprots/mochareports"
+    "clean:results": "rm -R -f cypress/results && mkdir -p cypress/results && mkdir -p cypress/results/screenshots && mkdir -p cypress/results/detailsCommandLogs",
+    "combine-reports": "mochawesome-merge \"cypress/results/*.json\" > cypress/reports/mochawesome-merged.json",
+    "generate-reports": "marge cypress/reports/mochawesome-merged.json -f report -o cypress/reports/mochareports"
   },
   "dependencies": {
     "axios": "^1.1.3",
