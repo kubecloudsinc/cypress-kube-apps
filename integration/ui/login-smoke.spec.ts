@@ -19,7 +19,9 @@ describe('Login test', () => {
     loginPage.enterCredentials('kubeuser', 'kubeuser');
     loginPage.clickSignIn();
 
-    cy.wait(`@${API_ENDPOINTS[Endpoints.AUTH_LOGIN].url}-${API_ENDPOINTS[Endpoints.AUTH_LOGIN].method}`).then((interception) => {
+    cy.wait(
+      `@${API_ENDPOINTS[Endpoints.AUTH_LOGIN].url}-${API_ENDPOINTS[Endpoints.AUTH_LOGIN].method}`
+    ).then((interception) => {
       const response = interception.response?.body as AuthResponse;
       expect(response).to.have.property('token');
       expect(response).to.have.property('username');

@@ -9,6 +9,7 @@ export default defineConfig({
     baseUrl: 'http://www.csrkreddy.com',
     env: {
       ...baseE2EConfig.env,
+      hostUrl: 'http://www.csrkreddy.com',
     },
   },
   setupNodeEvents: (on: PluginEvents, config: PluginConfigOptions) => {
