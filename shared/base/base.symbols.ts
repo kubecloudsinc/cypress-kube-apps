@@ -1,3 +1,3 @@
 export const BASE_SYMBOLS = {
-    IBase: Symbol("IBase")
+    IBaseAPI: Symbol("IBaseAPI")
 }
