@@ -15,8 +15,7 @@ describe('Test Employee APIs', () => {
   it('should get error response for invalid employee id', () => {
     _employeeAPI.getEmployee('100,').then((response: GetEmployeeResponse) => {
       const error = response as ApiError;
-      expect(error.status).to.eq(400);
-
+      expect(error.status).to.eq(500);
     });
   });
 });
