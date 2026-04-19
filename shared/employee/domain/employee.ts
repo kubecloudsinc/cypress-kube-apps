@@ -10,24 +10,29 @@ import {
 import { ApiError } from '@shared/base';
 
 @injectable()
-export class EmployeeAPI implements IEmployeeAPI{
+export class EmployeeAPI implements IEmployeeAPI {
   private _baseAPI: IBaseAPI;
   constructor(@inject(BASE_SYMBOLS.IBaseAPI) baseAPI: IBaseAPI) {
     this._baseAPI = baseAPI;
   }
-  getEmployee(employeeID: string):Cypress.Chainable<GetEmployeeResponse> {
-    return this._baseAPI.callAPI<GetEmployeeResponse>(
-      EmployeeEndPoint.Employee.replace(EMPLOYEE_ID_REPLACE_STRING,employeeID),
-      {
-        method: 'GET',
-      }
-    ).then((response) => {
-      if (isGetEmployeeError(response.body)) {
-        return response.body as ApiError;
-      } else {
-        expect(response.status, 'status code').to.eq(HTTPStatusCode.SUCCESS);
-        return response.body as GetEmployeeResponse;
-      }
-    });
+  getEmployee(employeeID: string): Cypress.Chainable<GetEmployeeResponse> {
+    return this._baseAPI
+      .callAPI<GetEmployeeResponse>(
+        EmployeeEndPoint.Employee.replace(
+          EMPLOYEE_ID_REPLACE_STRING,
+          employeeID
+        ),
+        {
+          method: 'GET',
+        }
+      )
+      .then((response) => {
+        if (isGetEmployeeError(response.body)) {
+          return response.body as ApiError;
+        } else {
+          expect(response.status, 'status code').to.eq(HTTPStatusCode.SUCCESS);
+          return response.body as GetEmployeeResponse;
+        }
+      });
   }
 }
