@@ -7,4 +7,7 @@ export class CommonUtils implements ICommonUtils {
   getRandomUUID(): string {
     return uuidv4();
   }
+
+  // TODO
+  //getRandomFromList();
 }
