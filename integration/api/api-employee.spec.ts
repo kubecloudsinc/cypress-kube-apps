@@ -14,6 +14,7 @@ import {
   NON_EXISTENT_EMPLOYEE_ERROR_MESSAGE,
 } from '@shared/base';
 import { invalidEmployeeId } from 'fixtures/api-test.registry';
+import { getRandomFromList } from 'support/utils/common-utils';
 
 describe('Test Employee APIs', () => {
   let _employeeAPI: IEmployeeAPI;
@@ -23,9 +24,9 @@ describe('Test Employee APIs', () => {
   });
   it('should get error response for non existing employee id', () => {
     // TODO instead of hardcoding 450, write a function in utils
-    const nonExistentEmployeeId =   getRandomFromList(invalidEmployeeId );
+    const nonExistentEmployeeId =   getRandomFromList(invalidEmployeeId) as number;
     _employeeAPI
-      .getEmployee(nonExistentEmployeeId)
+      .getEmployee(nonExistentEmployeeId as unknown as string)
       .then((response: GetEmployeeResponse) => {
         expect(isGetEmployeeError(response), 'Is the response an error object')
           .to.be.true;
@@ -74,7 +75,3 @@ describe('Test Employee APIs', () => {
       });
   });
 });
-function getRandomFromList(invalidEmployeeId: any) {
-  throw new Error('Function not implemented.');
-}
-

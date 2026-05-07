@@ -1,2 +1,2 @@
-const validEmployeeId = [100, 200];
-export const invalidEmployeeId = [207, 405, '100,'];
+export const validEmployeeId: number [] = [100, 200];
+export const invalidEmployeeId: number [] = [207, 405, 450, 500];

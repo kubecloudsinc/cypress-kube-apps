@@ -7,14 +7,5 @@ export class CommonUtils implements ICommonUtils {
   getRandomUUID(): string {
     return uuidv4();
   }
-
-  // TODO
-  //getRandomFromList();
-
-  
-  getRandomFromList = <T>(arr: T[]): T => {
-    const randomIndex = Math.floor(Math.random() * arr.length);
-    return arr[randomIndex];
-};
 }
 
