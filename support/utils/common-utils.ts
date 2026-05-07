@@ -12,3 +12,8 @@ export const post400Handler = (request: IncomingHttpRequest) => {
     response.send({ statusCode: 400, body: JSON.stringify(responseStub) });
   });
 };
+
+export const getRandomFromList = <T>(arr: T[]): T => {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    return arr[randomIndex];
+};
