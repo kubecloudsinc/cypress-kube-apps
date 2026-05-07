@@ -10,4 +10,11 @@ export class CommonUtils implements ICommonUtils {
 
   // TODO
   //getRandomFromList();
+
+  
+  getRandomFromList = <T>(arr: T[]): T => {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    return arr[randomIndex];
+};
 }
+
