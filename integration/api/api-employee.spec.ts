@@ -22,8 +22,13 @@ describe('Test Employee APIs', () => {
   before(() => {
     _employeeAPI = container.get(EMPLOYEE_SYMBOLS.IEmployeeAPI);
   });
+  // TODO happy path
+  //   get response
+  //  validate 200 ok
+  // pass a expected employee object and compare the values from api response
+  //    hint: create a employee test object in data registry
+
   it('should get error response for non existing employee id', () => {
-    // TODO instead of hardcoding 450, write a function in utils
     const nonExistentEmployeeId =   getRandomFromList(invalidEmployeeId) as number;
     _employeeAPI
       .getEmployee(nonExistentEmployeeId as unknown as string)
@@ -41,6 +46,7 @@ describe('Test Employee APIs', () => {
         );
       });
   });
+  // TODO: for loop for all the invalid combinations
   it('should get error response for invalid employee id - empty space', () => {
     const invalidEmployeeId = ' ';
     _employeeAPI
