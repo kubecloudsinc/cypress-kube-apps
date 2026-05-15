@@ -1,5 +1,6 @@
 import { container } from '@support/containers';
 import {
+  Employee,
   EMPLOYEE_SYMBOLS,
   GetEmployeeResponse,
   IEmployeeAPI,
@@ -13,7 +14,10 @@ import {
   DEFAULT_ERROR_PATH,
   NON_EXISTENT_EMPLOYEE_ERROR_MESSAGE,
 } from '@shared/base';
-import { invalidEmployeeId } from 'fixtures/api-test.registry';
+import {
+  invalidEmployeeId,
+  expectedEmployee,
+} from 'fixtures/api-test.registry';
 import { getRandomFromList } from 'support/utils/common-utils';
 
 describe('Test Employee APIs', () => {
@@ -22,14 +26,32 @@ describe('Test Employee APIs', () => {
   before(() => {
     _employeeAPI = container.get(EMPLOYEE_SYMBOLS.IEmployeeAPI);
   });
-  // TODO happy path
-  //   get response
-  //  validate 200 ok
-  // pass a expected employee object and compare the values from api response
-  //    hint: create a employee test object in data registry
+
+  it('should get success response for a valid employee id', () => {
+    // TODO get the random valid employee from validEmployeeIds list
+    const validEmployeeId = expectedEmployee.employeeId as unknown as string;
+
+    _employeeAPI
+      .getEmployee(validEmployeeId)
+      .then((response: GetEmployeeResponse) => {
+        expect(isGetEmployeeError(response), 'api response is error?').to.be
+          .false;
+        const employee = response as Employee;
+        expect(employee.employeeId, 'employee id should match expected').to.eq(
+          expectedEmployee.employeeId
+        );
+        expect(
+          employee.firstName,
+          'employee first name should match expected'
+        ).to.eq(expectedEmployee.firstName);
+        // TODO after making employee full validate the remaining fields also
+      });
+  });
 
   it('should get error response for non existing employee id', () => {
-    const nonExistentEmployeeId =   getRandomFromList(invalidEmployeeId) as number;
+    const nonExistentEmployeeId = getRandomFromList(
+      invalidEmployeeId
+    ) as number;
     _employeeAPI
       .getEmployee(nonExistentEmployeeId as unknown as string)
       .then((response: GetEmployeeResponse) => {
