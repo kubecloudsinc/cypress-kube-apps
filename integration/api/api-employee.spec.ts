@@ -17,6 +17,7 @@ import {
 import {
   invalidEmployeeId,
   expectedEmployee,
+  getRandomEmployee,
 } from 'fixtures/api-test.registry';
 import { getRandomFromList } from 'support/utils/common-utils';
 
@@ -28,8 +29,8 @@ describe('Test Employee APIs', () => {
   });
 
   it('should get success response for a valid employee id', () => {
-    // TODO get the random valid employee from validEmployeeIds list
-    const validEmployeeId = expectedEmployee.employeeId as unknown as string;
+    const randomEmployee = getRandomEmployee();
+    const validEmployeeId = randomEmployee.employeeId as unknown as string;
 
     _employeeAPI
       .getEmployee(validEmployeeId)
@@ -38,13 +39,19 @@ describe('Test Employee APIs', () => {
           .false;
         const employee = response as Employee;
         expect(employee.employeeId, 'employee id should match expected').to.eq(
-          expectedEmployee.employeeId
+          randomEmployee.employeeId
         );
         expect(
           employee.firstName,
           'employee first name should match expected'
-        ).to.eq(expectedEmployee.firstName);
-        // TODO after making employee full validate the remaining fields also
+        ).to.eq(randomEmployee.firstName);
+        expect(
+          employee.lastName,
+          'employee last name should match expected'
+        ).to.eq(randomEmployee.lastName);
+        expect(employee.salary, 'employee salary should match expected').to.eq(
+          randomEmployee.salary
+        );
       });
   });
 
