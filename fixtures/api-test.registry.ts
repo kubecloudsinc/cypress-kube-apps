@@ -33,3 +33,9 @@ export const nonexistentemployeeId: number[] = [207, 405, 450, 500];
 
 // TODO: add invalid employee id combinations
 // empty space, no value (null), with special chars, decimal number
+export const invalidEmployeeIdCombinations: { label: string; value: string }[] = [
+  { label: 'empty space', value: ' ' },
+  { label: 'no value', value: '' },
+  { label: 'with special chars', value: '100!' },
+  { label: 'decimal number', value: '100.5' },
+];

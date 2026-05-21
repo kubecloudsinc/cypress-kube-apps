@@ -18,6 +18,7 @@ import {
   nonexistentemployeeId,
   expectedEmployee,
   getRandomEmployee,
+  invalidEmployeeIdCombinations,
 } from 'fixtures/api-test.registry';
 import { getRandomFromList } from 'support/utils/common-utils';
 
@@ -76,37 +77,21 @@ describe('Test Employee APIs', () => {
       });
   });
   // TODO: for loop for all the invalid combinations
-  it('should get error response for invalid employee id - empty space', () => {
-    const invalidEmployeeId = ' ';
-    _employeeAPI
-      .getEmployee(invalidEmployeeId)
-      .then((response: GetEmployeeResponse) => {
-        expect(isGetEmployeeError(response), 'Is the response an error object')
-          .to.be.true;
-        const apiError = response as ApiError;
-        expect(apiError.status, 'Error status').to.eq(500);
-        expect(apiError.path, 'path should contain employee id').to.eq(
-          DEFAULT_ERROR_PATH
-        );
-        expect(apiError.error, 'Error').to.eq(DEFAULT_500_ERROR);
-        expect(apiError.message, 'Message').to.eq(DEFAULT_500_ERROR_MESSAGE);
-      });
-  });
-
-  it('should get error response for invalid employee id - empty not space but no value', () => {
-    const invalidEmployeeId = '';
-    _employeeAPI
-      .getEmployee(invalidEmployeeId)
-      .then((response: GetEmployeeResponse) => {
-        expect(isGetEmployeeError(response), 'Is the response an error object')
-          .to.be.true;
-        const apiError = response as ApiError;
-        expect(apiError.status, 'Error status').to.eq(500);
-        expect(apiError.path, 'path should contain employee id').to.eq(
-          DEFAULT_ERROR_PATH
-        );
-        expect(apiError.error, 'Error').to.eq(DEFAULT_500_ERROR);
-        expect(apiError.message, 'Message').to.eq(DEFAULT_500_ERROR_MESSAGE);
-      });
+  invalidEmployeeIdCombinations.forEach(({ label, value }) => {
+    it(`should get error response for invalid employee id - ${label}`, () => {
+      _employeeAPI
+        .getEmployee(value as unknown as string)
+        .then((response: GetEmployeeResponse) => {
+          expect(isGetEmployeeError(response), 'Is the response an error object')
+            .to.be.true;
+          const apiError = response as ApiError;
+          expect(apiError.status, 'Error status').to.eq(500);
+          expect(apiError.path, 'path should contain employee id').to.eq(
+            DEFAULT_ERROR_PATH
+          );
+          expect(apiError.error, 'Error').to.eq(DEFAULT_500_ERROR);
+          expect(apiError.message, 'Message').to.eq(DEFAULT_500_ERROR_MESSAGE);
+        });
+    });
   });
 });
