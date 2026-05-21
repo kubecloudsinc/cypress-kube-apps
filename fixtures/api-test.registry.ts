@@ -12,9 +12,9 @@ export const validEmployees: Employee[] = [
   },
   {
     employeeId: 200,
-    firstName: 'Nancy',
-    lastName: 'Davolio',
-    salary: 72000,
+    firstName: 'Jennifer',
+    lastName: 'Whalen',
+    salary: 4400,
   },
 ];
 
@@ -29,9 +29,7 @@ export const getRandomEmployee = (): Employee => {
 // For backward compatibility, export a single employee object
 export const expectedEmployee: Employee = validEmployees[0];
 
-// TODO correct the naming
-//   change invalid to non-existent emp id
-export const invalidEmployeeId: number[] = [207, 405, 450, 500];
+export const nonexistentemployeeId: number[] = [207, 405, 450, 500];
 
 // TODO: add invalid employee id combinations
 // empty space, no value (null), with special chars, decimal number

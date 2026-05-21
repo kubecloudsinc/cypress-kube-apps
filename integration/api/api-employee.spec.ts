@@ -15,7 +15,7 @@ import {
   NON_EXISTENT_EMPLOYEE_ERROR_MESSAGE,
 } from '@shared/base';
 import {
-  invalidEmployeeId,
+  nonexistentemployeeId,
   expectedEmployee,
   getRandomEmployee,
 } from 'fixtures/api-test.registry';
@@ -56,22 +56,22 @@ describe('Test Employee APIs', () => {
   });
 
   it('should get error response for non existing employee id', () => {
-    const nonExistentEmployeeId = getRandomFromList(
-      invalidEmployeeId
+    const selectedNonExistentEmployeeId = getRandomFromList(
+      nonexistentemployeeId
     ) as number;
     _employeeAPI
-      .getEmployee(nonExistentEmployeeId as unknown as string)
+      .getEmployee(selectedNonExistentEmployeeId as unknown as string)
       .then((response: GetEmployeeResponse) => {
         expect(isGetEmployeeError(response), 'Is the response an error object')
           .to.be.true;
         const apiError = response as ApiError;
         expect(apiError.status, 'Error status').to.eq(400);
         expect(apiError.path, 'path should contain employee id').contains(
-          nonExistentEmployeeId
+          selectedNonExistentEmployeeId
         );
         expect(apiError.error, 'Error').to.eq(DEFAULT_400_ERROR);
         expect(apiError.message, 'Message').to.eq(
-          `${NON_EXISTENT_EMPLOYEE_ERROR_MESSAGE}${nonExistentEmployeeId}`
+          `${NON_EXISTENT_EMPLOYEE_ERROR_MESSAGE}${selectedNonExistentEmployeeId}`
         );
       });
   });
