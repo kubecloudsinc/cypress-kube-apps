@@ -15,9 +15,14 @@ import {
   NON_EXISTENT_EMPLOYEE_ERROR_MESSAGE,
 } from '@shared/base';
 import {
+<<<<<<< latest-may-19
   nonexistentemployeeId,
   expectedEmployee,
   getRandomEmployee,
+=======
+  invalidEmployeeId,
+  expectedEmployee,
+>>>>>>> master
 } from 'fixtures/api-test.registry';
 import { getRandomFromList } from 'support/utils/common-utils';
 
@@ -29,8 +34,13 @@ describe('Test Employee APIs', () => {
   });
 
   it('should get success response for a valid employee id', () => {
+<<<<<<< latest-may-19
     const randomEmployee = getRandomEmployee();
     const validEmployeeId = randomEmployee.employeeId as unknown as string;
+=======
+    // TODO get the random valid employee from validEmployeeIds list
+    const validEmployeeId = expectedEmployee.employeeId as unknown as string;
+>>>>>>> master
 
     _employeeAPI
       .getEmployee(validEmployeeId)
@@ -39,11 +49,16 @@ describe('Test Employee APIs', () => {
           .false;
         const employee = response as Employee;
         expect(employee.employeeId, 'employee id should match expected').to.eq(
+<<<<<<< latest-may-19
           randomEmployee.employeeId
+=======
+          expectedEmployee.employeeId
+>>>>>>> master
         );
         expect(
           employee.firstName,
           'employee first name should match expected'
+<<<<<<< latest-may-19
         ).to.eq(randomEmployee.firstName);
         expect(
           employee.lastName,
@@ -52,12 +67,21 @@ describe('Test Employee APIs', () => {
         expect(employee.salary, 'employee salary should match expected').to.eq(
           randomEmployee.salary
         );
+=======
+        ).to.eq(expectedEmployee.firstName);
+        // TODO after making employee full validate the remaining fields also
+>>>>>>> master
       });
   });
 
   it('should get error response for non existing employee id', () => {
+<<<<<<< latest-may-19
     const selectedNonExistentEmployeeId = getRandomFromList(
       nonexistentemployeeId
+=======
+    const nonExistentEmployeeId = getRandomFromList(
+      invalidEmployeeId
+>>>>>>> master
     ) as number;
     _employeeAPI
       .getEmployee(selectedNonExistentEmployeeId as unknown as string)

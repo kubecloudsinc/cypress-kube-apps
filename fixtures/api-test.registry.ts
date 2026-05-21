@@ -2,6 +2,7 @@ import { Employee } from '@shared/employee';
 
 export const validEmployeeId: number[] = [100, 200];
 
+<<<<<<< latest-may-19
 // Full array of valid employees for testing
 export const validEmployees: Employee[] = [
   {
@@ -30,6 +31,19 @@ export const getRandomEmployee = (): Employee => {
 export const expectedEmployee: Employee = validEmployees[0];
 
 export const nonexistentemployeeId: number[] = [207, 405, 450, 500];
+=======
+//TODO make it full not partial
+// instead of a single object make it an array of valid employees
+//  so that a valid employee can be randomly selected
+export const expectedEmployee: Partial<Employee> = {
+  employeeId: 100,
+  firstName: 'Steven',
+};
+
+// TODO correct the naming
+//   change invalid to non-existent emp id
+export const invalidEmployeeId: number[] = [207, 405, 450, 500];
+>>>>>>> master
 
 // TODO: add invalid employee id combinations
 // empty space, no value (null), with special chars, decimal number
