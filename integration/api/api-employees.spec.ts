@@ -3,7 +3,7 @@ import { Employee } from '@shared/employee';
 import { ApiError } from '@shared/base';
 import { validEmployees } from 'fixtures/api-test.registry';
 
-export type GetEmployeesResponse = Employee[];
+export type GetEmployeesResponse = Employee[] | ApiError;
 
 const invalidEmployeesEndpoint = '/employees/invalid-path';
 
@@ -68,5 +68,21 @@ describe('Test Employees APIs', () => {
         });
       }
     );
+  });
+
+  it('should return unauthorized error for missing authentication', () => {
+    cy.request<GetEmployeesResponse>({
+      url: `${hostUrl}/api${employeesEndpoint}`,
+      method: HTTPMethod.GET,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status, 'status code').to.be.oneOf([401, 403]);
+      const apiError = response.body as ApiError;
+      expect(apiError.error, 'error').to.be.a('string');
+      expect(apiError.message, 'message').to.be.a('string');
+      expect(apiError.path, 'path should contain endpoint').to.contain(
+        employeesEndpoint
+      );
+    });
   });
 });
