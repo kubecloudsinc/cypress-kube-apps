@@ -1,8 +1,11 @@
 import { HTTPMethod } from '@shared/constants';
 import { Employee } from '@shared/employee';
+import { ApiError } from '@shared/base';
 import { validEmployees } from 'fixtures/api-test.registry';
 
 export type GetEmployeesResponse = Employee[];
+
+const invalidEmployeesEndpoint = '/employees/invalid-path';
 
 describe('Test Employees APIs', () => {
   const employeesEndpoint = '/employees';
@@ -41,6 +44,27 @@ describe('Test Employees APIs', () => {
               `employees list should include employee ${expectedEmployee.employeeId}`
             ).to.deep.include(expectedEmployee);
           });
+        });
+      }
+    );
+  });
+
+  it('should get error response for invalid employees path', () => {
+    cy.getToken({ username: 'kubeuser', password: 'kubeuser' }).then(
+      (token) => {
+        cy.request<GetEmployeesResponse>({
+          url: `${hostUrl}/api${invalidEmployeesEndpoint}`,
+          method: HTTPMethod.GET,
+          headers: { authorization: `Bearer ${token}` },
+          failOnStatusCode: false,
+        }).then((response) => {
+          expect(response.status, 'status code').to.be.oneOf([404, 400, 500]);
+          const apiError = response.body as ApiError;
+          expect(apiError.error, 'error').to.be.a('string');
+          expect(apiError.message, 'message').to.be.a('string');
+          expect(apiError.path, 'invalid path should be reflected').to.contain(
+            invalidEmployeesEndpoint
+          );
         });
       }
     );
